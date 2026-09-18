@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WiggleWoo Literacy Program — Learn. Wiggle. Read.</title>
+  <meta name="description" content="The WiggleWoo Literacy Program helps children ages 4–8 build reading confidence through phonics, CVC words, vocabulary, and interactive storytelling." />
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: #F7F3E8; color: #243B53; overflow-x: hidden; }
+
+    :root {
+      --coral: #FF7A59;
+      --yellow: #F4C542;
+      --teal: #4CBCC3;
+      --purple: #6FA8FF;
+      --green: #7BC96F;
+      --navy: #243B53;
+      --cream: #F7F3E8;
+      --shadow: 0 8px 32px rgba(36,59,83,0.10);
+      --shadow-sm: 0 4px 16px rgba(36,59,83,0.08);
+      --radius: 24px;
+    }
+
+    h1,h2,h3 { font-family: 'Fredoka One', cursive; letter-spacing: 0.01em; line-height: 1.15; }
+    p { line-height: 1.7; }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(247,243,232,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1.5px solid rgba(255,122,89,0.10);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Fredoka One', cursive; font-size: 1.7rem;
+      color: var(--coral); text-decoration: none;
+    }
+    .nav-logo .logo-mark {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--coral), var(--yellow));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; overflow: hidden;
+    }
+    .nav-logo .logo-mark img { width: 100%; height: 100%; object-fit: contain; border-radius: 12px; }
+    .nav-cta {
+      background: var(--coral); color: #fff;
+      padding: 10px 26px; border-radius: 50px;
+      font-weight: 800; font-size: 0.95rem; text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 14px rgba(255,122,89,0.35);
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,122,89,0.45); }
+
+    /* ===== SHARED ===== */
+    section { padding: 96px 24px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .center { text-align: center; }
+    .section-label { display: inline-block; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; padding: 5px 16px; border-radius: 50px; margin-bottom: 16px; }
+    .section-title { font-size: clamp(2rem, 4.5vw, 3rem); margin-bottom: 16px; color: var(--navy); }
+    .section-sub { font-size: 1.05rem; color: #52606D; max-width: 560px; margin: 0 auto 56px; font-weight: 600; }
+
+    /* ===== HERO ===== */
+    .lp-hero {
+      min-height: 70vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 140px 24px 80px;
+      background: linear-gradient(160deg, #DFF5DB 0%, #F7F3E8 40%, #DDF3F4 100%);
+      position: relative; overflow: hidden; text-align: center;
+    }
+    .lp-hero-blobs { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .lp-blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.3; animation: float 8s ease-in-out infinite; }
+    .lp-blob-1 { width: 350px; height: 350px; background: var(--green); top: -80px; right: -60px; }
+    .lp-blob-2 { width: 280px; height: 280px; background: var(--teal); bottom: -40px; left: -40px; animation-delay: 3s; }
+    .lp-blob-3 { width: 200px; height: 200px; background: var(--yellow); top: 50%; left: 20%; animation-delay: 5s; }
+    @keyframes float {
+      0%,100% { transform: translate(0,0) scale(1); }
+      50% { transform: translate(20px,-30px) scale(1.05); }
+    }
+    .lp-hero-inner { position: relative; z-index: 2; max-width: 720px; }
+    .lp-hero-logo { width: 220px; margin-bottom: 28px; }
+    .lp-hero-method { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #4A9E3F; margin-bottom: 8px; }
+    .lp-hero h1 { font-size: clamp(2.4rem, 6vw, 4rem); color: var(--navy); margin-bottom: 20px; }
+    .lp-hero h1 .accent { color: var(--green); }
+    .lp-hero-sub { font-size: clamp(1rem, 2.5vw, 1.2rem); color: #52606D; max-width: 560px; margin: 0 auto 36px; font-weight: 600; }
+    .lp-hero-cta { display: inline-block; padding: 16px 36px; border-radius: 50px; background: var(--green); color: #fff; font-size: 1.05rem; font-weight: 800; font-family: 'Nunito', sans-serif; text-decoration: none; box-shadow: 0 6px 20px rgba(123,201,111,0.40); transition: transform 0.2s, box-shadow 0.2s; }
+    .lp-hero-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(123,201,111,0.50); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-1 { animation: fadeUp 0.7s 0.1s ease both; }
+    .fade-2 { animation: fadeUp 0.7s 0.2s ease both; }
+    .fade-3 { animation: fadeUp 0.7s 0.3s ease both; }
+    .fade-4 { animation: fadeUp 0.7s 0.4s ease both; }
+    .fade-5 { animation: fadeUp 0.7s 0.5s ease both; }
+
+    /* ===== METHOD SECTION ===== */
+    .method-section { background: #fff; }
+    .method-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; margin-top: 48px; }
+    .method-card {
+      background: #F7F3E8; border-radius: var(--radius); padding: 36px 28px;
+      text-align: center; transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .method-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+    .method-icon { width: 68px; height: 68px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 20px; }
+    .method-card h3 { font-size: 1.2rem; margin-bottom: 10px; font-family: 'Nunito', sans-serif; font-weight: 800; }
+    .method-card p { font-size: 0.92rem; color: #52606D; font-weight: 600; }
+
+    /* ===== WHO IT'S FOR ===== */
+    .who-section { background: linear-gradient(135deg, #DFF5DB 0%, #F7F3E8 100%); }
+    .who-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 48px; }
+    .who-card {
+      background: #fff; border-radius: var(--radius); padding: 32px 28px;
+      display: flex; gap: 18px; align-items: flex-start;
+      box-shadow: var(--shadow-sm); transition: transform 0.25s;
+    }
+    .who-card:hover { transform: translateY(-4px); }
+    .who-icon { width: 52px; height: 52px; min-width: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; }
+    .who-card h3 { font-family: 'Nunito', sans-serif; font-size: 1.05rem; font-weight: 800; margin-bottom: 6px; }
+    .who-card p { font-size: 0.92rem; color: #52606D; font-weight: 600; }
+
+    /* ===== HOW IT WORKS ===== */
+    .how-section { background: #fff; }
+    .how-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 48px; counter-reset: step; }
+    .how-step {
+      text-align: center; padding: 32px 20px; position: relative;
+    }
+    .how-step::before {
+      counter-increment: step;
+      content: counter(step);
+      display: flex; align-items: center; justify-content: center;
+      width: 48px; height: 48px; border-radius: 50%; margin: 0 auto 18px;
+      background: var(--green); color: #fff;
+      font-family: 'Fredoka One', cursive; font-size: 1.3rem;
+    }
+    .how-step h3 { font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800; margin-bottom: 8px; }
+    .how-step p { font-size: 0.88rem; color: #52606D; font-weight: 600; }
+
+    /* ===== OUTCOMES ===== */
+    .outcomes-section { background: linear-gradient(160deg, #DEEAFF 0%, #DDF3F4 100%); }
+    .outcomes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+    .outcome-card {
+      background: #fff; border-radius: var(--radius); padding: 28px;
+      display: flex; gap: 16px; align-items: flex-start;
+      box-shadow: var(--shadow-sm);
+    }
+    .outcome-check { width: 28px; height: 28px; min-width: 28px; border-radius: 8px; background: #DFF5DB; color: #4A9E3F; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 800; margin-top: 2px; }
+    .outcome-card p { font-weight: 700; color: #243B53; font-size: 0.95rem; }
+
+    /* ===== SKILLS COVERED ===== */
+    .skills-section { background: #fff; }
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 48px; }
+    .skill-card {
+      background: #F7F3E8; border-radius: var(--radius); padding: 36px 28px;
+      position: relative; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .skill-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; }
+    .skill-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+    .skill-card .skill-icon { width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin-bottom: 18px; }
+    .skill-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+    .skill-card p { font-size: 0.92rem; color: #52606D; font-weight: 600; margin-bottom: 16px; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-tag { font-size: 0.78rem; font-weight: 700; padding: 4px 12px; border-radius: 50px; }
+    .sk-phonics::before { background: var(--coral); }
+    .sk-phonics .skill-icon { background: #FFE5DB; }
+    .sk-phonics .skill-tag { background: #FFE5DB; color: var(--coral); }
+    .sk-cvc::before { background: var(--purple); }
+    .sk-cvc .skill-icon { background: #DEEAFF; }
+    .sk-cvc .skill-tag { background: #DEEAFF; color: #3B7DD8; }
+    .sk-vocab::before { background: var(--yellow); }
+    .sk-vocab .skill-icon { background: #FDF3D0; }
+    .sk-vocab .skill-tag { background: #FDF3D0; color: #A87400; }
+    .sk-reading::before { background: var(--teal); }
+    .sk-reading .skill-icon { background: #DDF3F4; }
+    .sk-reading .skill-tag { background: #DDF3F4; color: #147D8A; }
+
+    /* ===== CURRICULUM PILLS ===== */
+    .curriculum-pills { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 56px; }
+    .curr-pill { font-size: 0.82rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 22px; border-radius: 50px; background: #DFF5DB; color: #4A9E3F; border: 1.5px solid rgba(123,201,111,0.3); }
+
+    /* ===== CTA SECTION ===== */
+    .cta-section { background: var(--navy); text-align: center; position: relative; overflow: hidden; }
+    .cta-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 60% 50%, rgba(123,201,111,0.15) 0%, transparent 70%), radial-gradient(ellipse at 20% 80%, rgba(76,188,195,0.12) 0%, transparent 60%); }
+    .cta-inner { position: relative; z-index: 2; }
+    .cta-section .section-title { color: #fff; }
+    .cta-section p { color: rgba(255,255,255,0.65); font-weight: 600; font-size: 1.05rem; max-width: 520px; margin: 0 auto 36px; }
+    .cta-btn { display: inline-block; padding: 16px 40px; border-radius: 50px; background: var(--green); color: #fff; font-size: 1.1rem; font-weight: 800; font-family: 'Nunito', sans-serif; text-decoration: none; box-shadow: 0 6px 24px rgba(123,201,111,0.40); transition: transform 0.2s, box-shadow 0.2s; }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(123,201,111,0.55); }
+
+    /* ===== FOOTER ===== */
+    footer { background: #102A43; color: rgba(255,255,255,0.55); padding: 48px 24px 36px; text-align: center; }
+    .footer-logo { font-family: 'Fredoka One', cursive; font-size: 1.8rem; color: var(--coral); margin-bottom: 8px; }
+    .footer-tagline { font-size: 0.9rem; font-weight: 700; letter-spacing: 0.05em; color: rgba(255,255,255,0.4); margin-bottom: 28px; }
+    .footer-links { display: flex; gap: 28px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
+    .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--teal); }
+    .footer-copy { font-size: 0.8rem; }
+
+    /* ===== SCROLL ANIMATIONS ===== */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; } .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; } .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 860px) {
+      nav { padding: 16px 24px; }
+      .method-grid { grid-template-columns: 1fr; }
+      .who-grid { grid-template-columns: 1fr; }
+      .how-steps { grid-template-columns: 1fr 1fr; }
+      .outcomes-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 72px 20px; }
+      .how-steps { grid-template-columns: 1fr; }
+      .lp-hero-logo { width: 160px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="logo-mark">
+        <img src="images/logo.png" alt="WiggleWoo Logo" onerror="this.style.display='none';this.parentElement.textContent='&#x1F41B;'" />
+      </div>
+      WiggleWoo
+    </a>
+    <a href="https://wigglewoo.app/#waitlist" class="nav-cta">Join Waitlist</a>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="lp-hero">
+    <div class="lp-hero-blobs">
+      <div class="lp-blob lp-blob-1"></div>
+      <div class="lp-blob lp-blob-2"></div>
+      <div class="lp-blob lp-blob-3"></div>
+    </div>
+    <div class="lp-hero-inner">
+      <img src="images/literacy-program-logo.png" alt="WiggleWoo Literacy Program logo" class="lp-hero-logo fade-1" />
+      <div class="lp-hero-method fade-2">THE WIGGLEWOO METHOD</div>
+      <h1 class="fade-2">The WiggleWoo <span class="accent">Literacy Program</span></h1>
+      <p class="lp-hero-sub fade-3">A fun, phonics-first learning experience designed to help children ages 4-8 build real reading confidence through interactive play, storytelling, and discovery.</p>
+      <a href="https://wigglewoo.app/#waitlist" class="lp-hero-cta fade-4">Join the Waitlist</a>
+    </div>
+  </section>
+
+  <!-- ===== THE WIGGLEWOO METHOD ===== -->
+  <section class="method-section">
+    <div class="container center">
+      <div class="section-label reveal" style="background:#DFF5DB;color:#4A9E3F">&#x1F331; Our Approach</div>
+      <h2 class="section-title reveal reveal-delay-1">The WiggleWoo <span style="color:var(--green)">Method</span></h2>
+      <p class="section-sub reveal reveal-delay-2">WiggleWoo combines proven phonics techniques with playful, child-centered design to create a learning experience kids actually enjoy.</p>
+      <div class="method-grid">
+        <div class="method-card reveal">
+          <div class="method-icon" style="background:#FFE5DB">&#x1F3B5;</div>
+          <h3>Sound-First Learning</h3>
+          <p>Children learn letter sounds before letter names, building the phonemic awareness that forms the foundation of reading.</p>
+        </div>
+        <div class="method-card reveal reveal-delay-1">
+          <div class="method-icon" style="background:#FDF3D0">&#x1F3AE;</div>
+          <h3>Play-Based Discovery</h3>
+          <p>Interactive games and activities let children explore at their own pace, making learning feel like an adventure rather than a task.</p>
+        </div>
+        <div class="method-card reveal reveal-delay-2">
+          <div class="method-icon" style="background:#DDF3F4">&#x1F4D6;</div>
+          <h3>Story-Driven Context</h3>
+          <p>Words and sounds are woven into engaging stories that give meaning to what children learn, helping them connect reading to the real world.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHO IT'S DESIGNED FOR ===== -->
+  <section class="who-section">
+    <div class="container center">
+      <div class="section-label reveal" style="background:#DFF5DB;color:#4A9E3F">&#x1F465; Who It's For</div>
+      <h2 class="section-title reveal reveal-delay-1">Designed for <span style="color:var(--green)">Everyone</span> in a Child's Learning Journey</h2>
+      <div class="who-grid">
+        <div class="who-card reveal">
+          <div class="who-icon" style="background:#FFE5DB">&#x1F3E0;</div>
+          <div>
+            <h3>Parents at Home</h3>
+            <p>Give your child a head start with structured phonics activities they can do independently or with you, right from the living room.</p>
+          </div>
+        </div>
+        <div class="who-card reveal reveal-delay-1">
+          <div class="who-icon" style="background:#FDF3D0">&#x1F3EB;</div>
+          <div>
+            <h3>Classroom Teachers</h3>
+            <p>Supplement your literacy curriculum with interactive phonics activities that align with structured literacy frameworks.</p>
+          </div>
+        </div>
+        <div class="who-card reveal reveal-delay-2">
+          <div class="who-icon" style="background:#DDF3F4">&#x1F4DA;</div>
+          <div>
+            <h3>Tutoring Programs</h3>
+            <p>Use WiggleWoo as a fun, engaging resource for one-on-one or small group reading intervention sessions.</p>
+          </div>
+        </div>
+        <div class="who-card reveal reveal-delay-3">
+          <div class="who-icon" style="background:#DEEAFF">&#x2B50;</div>
+          <div>
+            <h3>Early Learners (Ages 4-8)</h3>
+            <p>Whether just starting with letters or building fluency, WiggleWoo meets children where they are on their reading journey.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW THE PROGRAM WORKS ===== -->
+  <section class="how-section">
+    <div class="container center">
+      <div class="section-label reveal" style="background:#DFF5DB;color:#4A9E3F">&#x2699;&#xFE0F; How It Works</div>
+      <h2 class="section-title reveal reveal-delay-1">How the <span style="color:var(--green)">Program Works</span></h2>
+      <p class="section-sub reveal reveal-delay-2">A simple, structured path from first sounds to confident reading.</p>
+      <div class="how-steps">
+        <div class="how-step reveal">
+          <h3>Discover Sounds</h3>
+          <p>Children are introduced to letter sounds through playful audio, animation, and interactive exploration.</p>
+        </div>
+        <div class="how-step reveal reveal-delay-1">
+          <h3>Build Words</h3>
+          <p>Tile-by-tile word building helps children blend sounds together to form CVC words and beyond.</p>
+        </div>
+        <div class="how-step reveal reveal-delay-2">
+          <h3>Play &amp; Practice</h3>
+          <p>Mini-games reinforce learning through repetition that feels fun, not forced. Kids ask to play again and again.</p>
+        </div>
+        <div class="how-step reveal reveal-delay-3">
+          <h3>Read with Confidence</h3>
+          <p>Story-based activities bring it all together, helping children apply their skills to real reading experiences.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LEARNING OUTCOMES ===== -->
+  <section class="outcomes-section">
+    <div class="container center">
+      <div class="section-label reveal" style="background:#DEEAFF;color:#3B7DD8">&#x1F3AF; Outcomes</div>
+      <h2 class="section-title reveal reveal-delay-1">Learning <span style="color:var(--purple)">Outcomes</span></h2>
+      <p class="section-sub reveal reveal-delay-2">What children gain through the WiggleWoo Literacy Program.</p>
+      <div class="outcomes-grid">
+        <div class="outcome-card reveal">
+          <span class="outcome-check">&#x2713;</span>
+          <p>Recognise and produce all 26 letter sounds confidently</p>
+        </div>
+        <div class="outcome-card reveal reveal-delay-1">
+          <span class="outcome-check">&#x2713;</span>
+          <p>Blend sounds together to read CVC words independently</p>
+        </div>
+        <div class="outcome-card reveal reveal-delay-2">
+          <span class="outcome-check">&#x2713;</span>
+          <p>Build a growing sight-word vocabulary through repeated exposure</p>
+        </div>
+        <div class="outcome-card reveal reveal-delay-3">
+          <span class="outcome-check">&#x2713;</span>
+          <p>Develop the confidence and motivation to read on their own</p>
+        </div>
+        <div class="outcome-card reveal">
+          <span class="outcome-check">&#x2713;</span>
+          <p>Understand that reading is fun, rewarding, and within their reach</p>
+        </div>
+        <div class="outcome-card reveal reveal-delay-1">
+          <span class="outcome-check">&#x2713;</span>
+          <p>Progress at their own pace with adaptive difficulty levels</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LEARNING SKILLS COVERED ===== -->
+  <section class="skills-section">
+    <div class="container center">
+      <div class="section-label reveal" style="background:#DFF5DB;color:#4A9E3F">&#x1F9E0; Skills Covered</div>
+      <h2 class="section-title reveal reveal-delay-1">Learning Skills <span style="color:var(--green)">Covered</span></h2>
+      <p class="section-sub reveal reveal-delay-2">Four core skill areas that build a strong foundation for lifelong reading.</p>
+      <div class="skills-grid">
+        <div class="skill-card sk-phonics reveal">
+          <div class="skill-icon">&#x1F3B5;</div>
+          <h3>Phonics Awareness</h3>
+          <p>Children learn to hear, identify, and manipulate individual sounds in spoken words — the essential first step to decoding text.</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Letter Sounds</span>
+            <span class="skill-tag">Phoneme Recognition</span>
+            <span class="skill-tag">Sound Blending</span>
+          </div>
+        </div>
+        <div class="skill-card sk-cvc reveal reveal-delay-1">
+          <div class="skill-icon">&#x1F522;</div>
+          <h3>CVC Word Building</h3>
+          <p>Tile-by-tile activities guide children through building Consonant-Vowel-Consonant words, developing their decoding and spelling skills.</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Word Construction</span>
+            <span class="skill-tag">Sound Segmenting</span>
+            <span class="skill-tag">Spelling Patterns</span>
+          </div>
+        </div>
+        <div class="skill-card sk-vocab reveal reveal-delay-2">
+          <div class="skill-icon">&#x1F4D6;</div>
+          <h3>Vocabulary Development</h3>
+          <p>Through story-driven activities and contextual learning, children expand their word knowledge and understanding of language.</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Sight Words</span>
+            <span class="skill-tag">Word Meaning</span>
+            <span class="skill-tag">Context Clues</span>
+          </div>
+        </div>
+        <div class="skill-card sk-reading reveal reveal-delay-3">
+          <div class="skill-icon">&#x2B50;</div>
+          <h3>Reading Confidence</h3>
+          <p>Celebration, encouragement, and achievable goals help children see themselves as readers, building the confidence to tackle new challenges.</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Fluency</span>
+            <span class="skill-tag">Comprehension</span>
+            <span class="skill-tag">Self-Motivation</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Curriculum Pills -->
+      <div class="curriculum-pills reveal">
+        <span class="curr-pill">AGES 4-8</span>
+        <span class="curr-pill">PHONICS</span>
+        <span class="curr-pill">CVC WORDS</span>
+        <span class="curr-pill">VOCABULARY</span>
+        <span class="curr-pill">READING CONFIDENCE</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta-section">
+    <div class="cta-inner container">
+      <h2 class="section-title reveal">Ready to Start Your Child's <span style="color:var(--green)">Reading Journey</span>?</h2>
+      <p class="reveal reveal-delay-1">Join the waitlist today and be the first to access the WiggleWoo Literacy Program when it launches.</p>
+      <a href="https://wigglewoo.app/#waitlist" class="cta-btn reveal reveal-delay-2">Join the Waitlist &#x2728;</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-logo">WiggleWoo</div>
+    <div class="footer-tagline">Learn. Wiggle. Read.</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="#">About</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="mailto:support@wigglewoo.app">Contact</a>
+    </div>
+    <div class="footer-copy">&copy; 2026 Bottor Technologies Inc. All rights reserved. Made with &#x2764;&#xFE0F; for little readers everywhere.</div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    const allReveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    allReveals.forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>
